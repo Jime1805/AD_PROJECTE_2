@@ -1,0 +1,14 @@
+DROP TABLE producte IF EXISTS;
+
+CREATE TABLE producte(
+    id BIGINT AUTO_INCREMENT PRIMARY KEY,
+    nombre VARCHAR(20) NOT NULL,
+    descripcion VARCHAR(100),
+    stock BIGINT NOT NULL,
+    price DOUBLE(5, 2) NOT NULL,
+    rating DOUBLE (2,1),
+    condition VARCHAR(20),
+    status BOOLEAN not null,
+    dataCreated TIMESTAMP DEFAULT CURRENT_TIMESTAMP,
+    dataUpdated TIMESTAMP DEFAULT CURRENT_TIMESTAMP ON UPDATE CURRENT_TIMESTAMP
+);
