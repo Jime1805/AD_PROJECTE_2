@@ -6,4 +6,6 @@ import com.ra34.projecte2.model.Producte;
 
 public interface ProducteRepository extends JpaRepository<Producte, Long> {
     
+    // Separació Eric a baix, Marc a dalt.
+
 }
