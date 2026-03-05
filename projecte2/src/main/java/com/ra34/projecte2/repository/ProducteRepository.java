@@ -1,9 +1,12 @@
 package com.ra34.projecte2.repository;
 
+import java.util.List;
+
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.data.jpa.repository.Query;
 import org.springframework.data.repository.query.Param;
 
+import com.ra34.projecte2.model.Condition;
 import com.ra34.projecte2.model.Producte;
 
 public interface ProducteRepository extends JpaRepository<Producte, Long> {
@@ -15,5 +18,7 @@ public interface ProducteRepository extends JpaRepository<Producte, Long> {
     String updatePreuById(@Param("id") Long id, @Param("preu") int preu);
 
     // Separació Eric a baix, Marc a dalt.
+
+    List<Producte> findByConditionAndStatusTrue(Condition condition); // Cambiar si esta mal
 
 }
