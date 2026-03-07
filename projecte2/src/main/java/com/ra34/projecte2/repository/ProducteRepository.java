@@ -14,6 +14,10 @@ public interface ProducteRepository extends JpaRepository<Producte, Long> {
     @Query("update Producte p set p.preu = :preu where id = :id")
     String updatePreuById(@Param("id") Long id, @Param("preu") int preu);
 
+    // Borrat logic
+    @Query("update Producte p set p.status = :status where id = :id")
+    String updateStatusById(@Param("id") Long id, @Param("status") boolean status);
+
     // Separació Eric a baix, Marc a dalt.
 
 }
