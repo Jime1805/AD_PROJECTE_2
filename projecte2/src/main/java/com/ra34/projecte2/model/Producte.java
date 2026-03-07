@@ -2,16 +2,19 @@ package com.ra34.projecte2.model;
 
 import java.util.Date;
 
-import org.springframework.data.annotation.Id;
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
 import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Table;
+import jakarta.persistence.Id;
 
-@Entity(name="productes")
+@Entity
+@Table(name = "producte")
 public class Producte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
@@ -24,6 +27,7 @@ public class Producte {
     private float rating;
 
     @Enumerated(value = EnumType.STRING)
+    @Column(name = "`condition`")
     private Condition condition;
     
     private boolean status;
