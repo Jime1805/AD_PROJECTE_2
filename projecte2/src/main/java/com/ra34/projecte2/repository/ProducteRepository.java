@@ -11,11 +11,15 @@ import com.ra34.projecte2.model.Producte;
 
 public interface ProducteRepository extends JpaRepository<Producte, Long> {
     
-    @Query("update Producte p set p.estoc = :estoc where id = :id")
-    String updateEstocById(@Param("id") Long id, @Param("estoc") int estoc);
+    @Query("update Producte p set p.stock = :stock where id = :id")
+    String updateEstocById(@Param("id") Long id, @Param("stock") int stock);
 
-    @Query("update Producte p set p.preu = :preu where id = :id")
-    String updatePreuById(@Param("id") Long id, @Param("preu") int preu);
+    @Query("update Producte p set p.price = :price where id = :id")
+    String updatePreuById(@Param("id") Long id, @Param("price") int price);
+
+    // Borrat logic
+    @Query("update Producte p set p.status = :status where id = :id")
+    String updateStatusById(@Param("id") Long id, @Param("status") boolean status);
 
     // Separació Eric a baix, Marc a dalt.
 

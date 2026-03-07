@@ -34,6 +34,24 @@ public class ProducteService {
         return "S'ha modificat el preu del producte: {" + id + "} a {" + newPreu + "}.";
     }
 
+    public String borratLogicById(Long id) {
+        String respons = producteRepository.updateStatusById(id, true);
+
+        if (respons == null) return "No s'ha trobat el producte amb id: " + id;
+
+        return "S'ha fet el borrat logic del producte: {" + id + "}";
+    }
+
+    public String deleteProducteById(Long id) {
+        producteRepository.deleteById(id);
+
+        Optional<Producte> exists = producteRepository.findById(id);
+
+        if (exists.isEmpty()) return "S'ha borrat el producte: {" + id + "}";
+            
+        return "No s'ha pogut borrar el producte amb id: " + id;
+    }
+
     // Separació Eric a baix, Marc a dalt.
 
     public List<Producte> getingAllProductes(){

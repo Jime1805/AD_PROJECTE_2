@@ -39,6 +39,12 @@ public class ProducteController {
         return ResponseEntity.status(HttpStatus.OK).body(updated);
     }
 
+    @PatchMapping("/producte/borratlogic")
+    public ResponseEntity<String> borratLogicById(@RequestParam Long id) {
+        String respons = producteService.borratLogicById(id);
+        return ResponseEntity.status(HttpStatus.OK).body(respons);
+    }
+
     // Separació Eric a baix, Marc a dalt.
 
     @GetMapping("/producte")
