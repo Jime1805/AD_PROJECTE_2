@@ -14,8 +14,11 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.ra34.projecte2.model.Condition;
 import com.ra34.projecte2.model.Producte;
 import com.ra34.projecte2.service.ProducteService;
+import org.springframework.web.bind.annotation.PutMapping;
+
 
 @RestController
 @RequestMapping("/api")
@@ -53,8 +56,8 @@ public class ProducteController {
         return ResponseEntity.status(HttpStatus.OK).body(finded);
     }
 
-    @GetMapping("/producte/{id}")
-    public ResponseEntity<Producte> getMethodName(@PathVariable Long id) {
+    @GetMapping("/producte/id/{id}")
+    public ResponseEntity<Producte> getProductesById(@PathVariable Long id) {
         Producte finded = producteService.getingProducteById(id);
         if (finded == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
@@ -62,8 +65,8 @@ public class ProducteController {
         return ResponseEntity.status(HttpStatus.OK).body(finded);
     }
 
-    @PostMapping("path")
-    public ResponseEntity<String> postMethodName(@RequestBody Producte producte) {
+    @PostMapping("/producte/producte")
+    public ResponseEntity<String> postProducte(@RequestBody Producte producte) {
         Producte posting = producteService.postingProducte(producte);
         if (posting == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No s'ha pogut afegir l'usuari");
@@ -71,6 +74,22 @@ public class ProducteController {
         return ResponseEntity.status(HttpStatus.OK).body("S'ha afegit correctament l'usuari");
     }
 
-    // falta endpoint update
+    @PutMapping("/producte/{id}")
+    public ResponseEntity<String> putMethodName(@PathVariable String id, @RequestBody Producte producte) {
+        Producte updating = producteService.updatingProducte(producte);
+        if (updating == null) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No s'ha pogut actualitzar el producte");
+        }
+        return ResponseEntity.status(HttpStatus.OK).body("S'ha actualitzat el producte correctament");
+    }
 
+    @GetMapping("/producte/condition/{condition}") // 4. Integrant 2
+    public ResponseEntity<List<Producte>> getByCondition(@PathVariable Condition condition) {
+        List<Producte> finded = producteService.getingByCondition(condition);
+        if (finded == null || finded.isEmpty()) {
+            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(finded);
+    }
+    
 }

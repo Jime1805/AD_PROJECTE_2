@@ -8,6 +8,7 @@ import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
 
+import com.ra34.projecte2.model.Condition;
 import com.ra34.projecte2.model.Producte;
 import com.ra34.projecte2.repository.ProducteRepository;
 
@@ -84,4 +85,7 @@ public class ProducteService {
         return null;
     }
 
+    public List<Producte> getingByCondition(Condition condition){ //4. Integrant 2
+        return producteRepository.findByConditionAndStatusTrue(condition);
+    }
 }
