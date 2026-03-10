@@ -20,5 +20,9 @@ public interface ProducteRepository extends JpaRepository<Producte, Long> {
     // Separació Eric a baix, Marc a dalt.
 
     List<Producte> findByConditionAndStatusTrue(Condition condition); // Cambiar si esta mal
-
+    List<Producte> findByStatusTrueOrderByRatingAsc();
+    List<Producte> findByStatusTrueOrderByRatingDesc();
+    @Query("SELECT p FROM Product p WHERE p.rating BETWEEN :ratingMin AND :ratingMax AND p.status=true ORDER BY " +
+            "CASE WHEN :order = 'asc' THEN p.rating END ASC, CASE WHEN :order = 'desc' THEN p.rating END DESC")
+    List<Producte> findByRatingRangeJPQL(double ratingMin, double ratingMax, String order); //Mirar si es necesario y está bien
 }
