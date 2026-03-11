@@ -2,7 +2,10 @@ package com.ra34.projecte2.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.List;
 import java.util.Optional;
 
@@ -11,6 +14,8 @@ import org.springframework.beans.BeanUtils;
 import com.ra34.projecte2.model.Condition;
 import com.ra34.projecte2.model.Producte;
 import com.ra34.projecte2.repository.ProducteRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ProducteService {
@@ -50,6 +55,44 @@ public class ProducteService {
         if (exists.isEmpty()) return "S'ha borrat el producte: {" + id + "}";
             
         return "No s'ha pogut borrar el producte amb id: " + id;
+    }
+
+    @Transactional
+    public String createProducteBatchCSV(MultipartFile csvFile) {
+        int numeroLinia = 0;
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(csvFile.getInputStream()))) {
+            String linia = br.readLine();
+
+            while ((linia = br.readLine()) != null) {
+                numeroLinia++;
+                // Separar per comes (CSV simple)
+                String[] camps = linia.split(",");
+
+                if (camps.length != 7) throw new Exception("");
+
+                Producte p = new Producte();
+
+                p.setNombre(camps[0]);
+                p.setDescripcion(camps[1]);
+                p.setStock(Integer.parseInt(camps[2]));
+                p.setPrice(Float.parseFloat(camps[3]));
+                p.setRating(Float.parseFloat(camps[4]));
+                p.setCondition(Condition.valueOf(camps[5].toUpperCase()));
+
+                producteRepository.save(p);
+            }
+
+            // Path pathDirectori = Paths.get("accessadades-ra2-ac2/private/csv_processed");
+            // Path pathFitxer = Paths.get("accessadades-ra2-ac2/private/csv_processed/"
+            //         + System.currentTimeMillis() + csvFile.getOriginalFilename());
+
+            // Files.createDirectories(pathDirectori);
+            // Files.copy(csvFile.getInputStream(), pathFitxer);
+
+            return numeroLinia + " usuaris creats";
+        } catch (Exception e) {
+            return "Error en la linia: " + numeroLinia + " del fitxer.";
+        }
     }
 
     // Separació Eric a baix, Marc a dalt.

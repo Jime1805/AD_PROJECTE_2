@@ -13,6 +13,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ra34.projecte2.model.Condition;
 import com.ra34.projecte2.model.Producte;
@@ -27,23 +28,30 @@ public class ProducteController {
     @Autowired
     ProducteService producteService;
 
-    @PatchMapping("/producte/estoc")
-    public ResponseEntity<String> updateEstocProducte(@RequestParam Long id, @RequestParam int newEstoc) {
+    @PatchMapping("/producte/{id}/estoc")
+    public ResponseEntity<String> updateEstocProducte(@PathVariable Long id, @RequestParam int newEstoc) {
         String updated = producteService.updateEstocProducte(id, newEstoc);
         return ResponseEntity.status(HttpStatus.OK).body(updated);
     }
 
-    @PatchMapping("/producte/preu")
-    public ResponseEntity<String> updatePreuProducte(@RequestParam Long id, @RequestParam int newPreu) {
+    @PatchMapping("/producte/{id}/preu")
+    public ResponseEntity<String> updatePreuProducte(@PathVariable Long id, @RequestParam int newPreu) {
         String updated = producteService.updatePreuProducte(id, newPreu);
         return ResponseEntity.status(HttpStatus.OK).body(updated);
     }
 
-    @PatchMapping("/producte/borratlogic")
-    public ResponseEntity<String> borratLogicById(@RequestParam Long id) {
+    @PatchMapping("/producte/{id}/borratlogic")
+    public ResponseEntity<String> borratLogicById(@PathVariable Long id) {
         String respons = producteService.borratLogicById(id);
         return ResponseEntity.status(HttpStatus.OK).body(respons);
     }
+
+    @PostMapping("/producte/batch/csv")
+    public ResponseEntity<String> postMethodName(@RequestBody MultipartFile csvFile) {
+        String response = producteService.createProducteBatchCSV(csvFile);
+        return ResponseEntity.status(HttpStatus.OK).body(response);
+    }
+    
 
     // Separació Eric a baix, Marc a dalt.
 
