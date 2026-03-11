@@ -40,7 +40,7 @@ public class ProducteService {
     }
 
     public String borratLogicById(Long id) {
-        String respons = producteRepository.updateStatusById(id, true);
+        String respons = producteRepository.updateStatusById(id, false);
 
         if (respons == null) return "No s'ha trobat el producte amb id: " + id;
 
