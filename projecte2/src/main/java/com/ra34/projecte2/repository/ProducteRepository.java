@@ -21,6 +21,9 @@ public interface ProducteRepository extends JpaRepository<Producte, Long> {
     @Query("update Producte p set p.status = :status where id = :id")
     String updateStatusById(@Param("id") Long id, @Param("status") boolean status);
 
+    @Query("SELECT p FROM productos p WHERE p.nombre LIKE :prefix'%';")
+    List<Producte> findNombreByPrefix(String prefix);
+
     // Separació Eric a baix, Marc a dalt.
 
     List<Producte> findByConditionAndStatusTrue(Condition condition); // Cambiar si esta mal

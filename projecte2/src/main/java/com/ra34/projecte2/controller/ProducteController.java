@@ -51,6 +51,12 @@ public class ProducteController {
         String response = producteService.createProducteBatchCSV(csvFile);
         return ResponseEntity.status(HttpStatus.OK).body(response);
     }
+
+    @GetMapping("/producte/name")
+    public ResponseEntity<List<Producte>> findProductByNameWithPrefix(@RequestParam String prefix) {
+        List<Producte> finded = producteService.findProductsByNameWithPrefix(prefix);
+        return ResponseEntity.status(HttpStatus.OK).body(finded);
+    }
     
 
     // Separació Eric a baix, Marc a dalt.

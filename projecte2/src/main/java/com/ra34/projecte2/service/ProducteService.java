@@ -95,6 +95,12 @@ public class ProducteService {
         }
     }
 
+    public List<Producte> findProductsByNameWithPrefix(String prefix) {
+        List<Producte> productes = producteRepository.findNombreByPrefix(prefix);
+
+        return productes;
+    }
+
     // Separació Eric a baix, Marc a dalt.
 
     public List<Producte> getingAllProductes(){
