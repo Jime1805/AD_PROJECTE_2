@@ -26,12 +26,12 @@ public interface ProducteRepository extends JpaRepository<Producte, Long> {
 
     List<Producte> findByConditionAndStatusTrue(Condition condition); // 4.1 Integrant 2
     
-    @Query("SELECT p FROM Product p ORDER BY CASE WHEN :order = 'asc' THEN p.price END ASC, CASE WHEN :order = 'desc' "
+    @Query("SELECT p FROM Product p WHERE p.status = true ORDER BY CASE WHEN :order = 'asc' THEN p.price END ASC, CASE WHEN :order = 'desc' "
         + " THEN p.price END DESC"
     )
     List<Producte> findByPriceRange(String order); //4.2 Integrant 2
 
-    @Query("SELECT p FROM Product p ORDER BY CASE WHEN :order = 'asc' THEN p.rating END ASC, CASE WHEN :order = 'desc' "
+    @Query("SELECT p FROM Product p WHERE p.status = true ORDER BY CASE WHEN :order = 'asc' THEN p.rating END ASC, CASE WHEN :order = 'desc' "
         + " THEN p.rating END DESC"
     )
     List<Producte> findByRatingRange(String order); // 4.2 Integrant 2
