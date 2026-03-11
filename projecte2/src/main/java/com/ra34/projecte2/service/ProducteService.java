@@ -85,7 +85,18 @@ public class ProducteService {
         return null;
     }
 
-    public List<Producte> getingByCondition(Condition condition){ //4. Integrant 2
+    public List<Producte> getingByCondition(Condition condition){ //4.1 Integrant 2
         return producteRepository.findByConditionAndStatusTrue(condition);
     }
+
+    public List<Producte> gettingByRattingWithOrder(String camp, String order){ //4.2 Integrant 2
+        if (camp.equalsIgnoreCase("price")) {
+            return producteRepository.findByPriceRange(order);
+        }
+        else if(camp.equalsIgnoreCase("rating")){
+            return producteRepository.findByRatingRange(order);
+        }
+        return null;
+    }
+        
 }

@@ -83,13 +83,23 @@ public class ProducteController {
         return ResponseEntity.status(HttpStatus.OK).body("S'ha actualitzat el producte correctament");
     }
 
-    @GetMapping("/producte/condition/{condition}") // 4. Integrant 2
-    public ResponseEntity<List<Producte>> getByCondition(@PathVariable Condition condition) {
+    @GetMapping("/producte/search/condition") // 4.1 Integrant 2
+    public ResponseEntity<List<Producte>> getByCondition(@RequestParam Condition condition) {
         List<Producte> finded = producteService.getingByCondition(condition);
         if (finded == null || finded.isEmpty()) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
         }
         return ResponseEntity.status(HttpStatus.OK).body(finded);
     }
+
+    @GetMapping("/api/products/search/condition") // 4.2 Integrant 2
+    public ResponseEntity<List<Producte>> getMethodName(@RequestParam String camp, @RequestParam String order) {
+        List<Producte> finded = producteService.gettingByRattingWithOrder(camp, order);
+        if (finded == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(finded);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(finded);
+    }
+    
     
 }
