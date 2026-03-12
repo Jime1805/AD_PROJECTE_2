@@ -29,14 +29,15 @@ public interface ProducteRepository extends JpaRepository<Producte, Long> {
     @Query("SELECT p FROM Product p WHERE p.status = true ORDER BY CASE WHEN :order = 'asc' THEN p.price END ASC, CASE WHEN :order = 'desc' "
         + " THEN p.price END DESC"
     )
-    List<Producte> findByPriceRange(String order); //4.2 Integrant 2
+    List<Producte> findByPriceRange(@Param("order") String order); //4.2 Integrant 2
 
     @Query("SELECT p FROM Product p WHERE p.status = true ORDER BY CASE WHEN :order = 'asc' THEN p.rating END ASC, CASE WHEN :order = 'desc' "
         + " THEN p.rating END DESC"
     )
-    List<Producte> findByRatingRange(String order); // 4.2 Integrant 2
+    List<Producte> findByRatingRange(@Param("order") String order); // 4.2 Integrant 2
 
-    @Query("SELECT p FROM Product p WHERE p.rating BETWEEN :ratingMin AND :ratingMax AND p.status=true ORDER BY " +
+    @Query("SELECT p FROM Product p WHERE p.rating BETWEEN :ratingMin AND :ratingMax AND p.status=true and p.price <= limit ORDER BY " +
             "CASE WHEN :order = 'asc' THEN p.rating END ASC, CASE WHEN :order = 'desc' THEN p.rating END DESC")
-    List<Producte> findByRatingRange(double ratingMin, double ratingMax, String order); //5.1 Integrant 2 revisar
+    List<Producte> findByRatingRange(@Param("ratingMin") double ratingMin, @Param("ratingMax") double ratingMax, @Param("order") String order, @Param("limit") double limit); //5.1 Integrant 2
+
 }

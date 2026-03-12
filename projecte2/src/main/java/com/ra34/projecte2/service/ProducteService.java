@@ -98,5 +98,9 @@ public class ProducteService {
         }
         return null;
     }
+
+    public List<Producte> gettingByPriceLimitAndRatingRange(double ratingMin, double ratingMax, String order, double limit){
+        return producteRepository.findByRatingRange(ratingMin, ratingMax, order, limit);
+    }
         
 }

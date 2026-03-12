@@ -93,7 +93,7 @@ public class ProducteController {
     }
 
     @GetMapping("/api/products/search/condition") // 4.2 Integrant 2
-    public ResponseEntity<List<Producte>> getMethodName(@RequestParam String camp, @RequestParam String order) {
+    public ResponseEntity<List<Producte>> getByRattingWithOrder(@RequestParam String camp, @RequestParam String order) {
         List<Producte> finded = producteService.gettingByRattingWithOrder(camp, order);
         if (finded == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(finded);
@@ -101,5 +101,13 @@ public class ProducteController {
         return ResponseEntity.status(HttpStatus.OK).body(finded);
     }
     
+    @GetMapping("/products/search/order/{rating_min}/{rating_max}/{limit}") // 5.1 Integrant 2
+    public ResponseEntity<List<Producte>> getMethodName(@PathVariable float rating_min, @PathVariable float rating_max, @PathVariable float limit, @RequestParam String camp, @RequestParam String order) {
+        List<Producte> finded = producteService.gettingByPriceLimitAndRatingRange(rating_min, rating_max, order, limit);
+        if (finded == null) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(finded);
+        }
+        return ResponseEntity.status(HttpStatus.OK).body(finded);
+    }
     
 }
