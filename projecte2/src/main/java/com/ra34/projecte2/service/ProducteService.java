@@ -1,6 +1,8 @@
 package com.ra34.projecte2.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -101,6 +103,10 @@ public class ProducteService {
 
     public List<Producte> gettingByPriceLimitAndRatingRange(double ratingMin, double ratingMax, String order, double limit){
         return producteRepository.findByRatingRange(ratingMin, ratingMax, order, limit);
+    }
+
+    public Page<Producte> gettingWithPage(Pageable pageable){
+        return producteRepository.findAll(pageable);
     }
         
 }

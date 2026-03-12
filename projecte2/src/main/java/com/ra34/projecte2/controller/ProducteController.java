@@ -3,6 +3,9 @@ package com.ra34.projecte2.controller;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -102,12 +105,19 @@ public class ProducteController {
     }
     
     @GetMapping("/products/search/order/{rating_min}/{rating_max}/{limit}") // 5.1 Integrant 2
-    public ResponseEntity<List<Producte>> getMethodName(@PathVariable float rating_min, @PathVariable float rating_max, @PathVariable float limit, @RequestParam String camp, @RequestParam String order) {
+    public ResponseEntity<List<Producte>> getByPriceLimitAndRatingRange(@PathVariable float rating_min, @PathVariable float rating_max, @PathVariable float limit, @RequestParam String camp, @RequestParam String order) {
         List<Producte> finded = producteService.gettingByPriceLimitAndRatingRange(rating_min, rating_max, order, limit);
         if (finded == null) {
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(finded);
         }
         return ResponseEntity.status(HttpStatus.OK).body(finded);
     }
+
+    @GetMapping("/products/page") // 6.1 Integrant 2
+    public Page<Producte> getWithPage() {
+        Pageable pageable = PageRequest.of(0, 5);
+        return producteService.gettingWithPage(pageable);
+    }
+    
     
 }
