@@ -5,6 +5,7 @@ import org.springframework.data.domain.Page;
 import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -69,20 +70,18 @@ public class ProducteService {
     }
 
     public Producte postingProducte(Producte producte){
-        Producte entity = new Producte();
-        if (producteRepository.findById(producte.getId()).isPresent()) {
-            BeanUtils.copyProperties(producte, entity);
-            entity.setId(null);
-            return producteRepository.save(entity);
-        }
-        return null;
+        producte.setId(null);
+        return producteRepository.save(producte);
     }
 
-    public Producte updatingProducte(Producte producte){
-        Producte entity = new Producte();
-        if (producteRepository.findById(producte.getId()).isPresent()) {
-            BeanUtils.copyProperties(producte, entity);
-            return producteRepository.save(entity);
+    public Producte updatingProducte(Long id, Producte producte){
+        Optional<Producte> existing = producteRepository.findById(id);
+
+        if (existing.isPresent()) {
+            Producte prod = existing.get();
+            BeanUtils.copyProperties(producte, prod, "id", "dataUpdated");
+            prod.setDataUpdated(new Date());
+            return producteRepository.save(prod);
         }
         return null;
     }

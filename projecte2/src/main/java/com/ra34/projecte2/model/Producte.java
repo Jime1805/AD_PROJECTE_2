@@ -36,13 +36,13 @@ public class Producte {
     private Date dataCreated;
     
     @DateTimeFormat(pattern = "yyyy-MM-dd")
-    private Date dateUpDate;
+    private Date dataUpdated;
 
     public Producte() {
     }
 
     public Producte(Long id, String nombre, String descripcion, int stock, float price, float rating,
-            Condition condition, boolean status, Date dataCreated, Date dateUpDate) {
+            Condition condition, boolean status, Date dataCreated, Date dataUpdated) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -52,7 +52,7 @@ public class Producte {
         this.condition = condition;
         this.status = status;
         this.dataCreated = dataCreated;
-        this.dateUpDate = dateUpDate;
+        this.dataUpdated = dataUpdated;
     }
 
     public Long getId() {
@@ -127,11 +127,11 @@ public class Producte {
         this.dataCreated = dataCreated;
     }
 
-    public Date getDateUpDate() {
-        return dateUpDate;
+    public Date getDataUpdated() {
+        return dataUpdated;
     }
 
-    public void setDateUpDate(Date dateUpDate) {
-        this.dateUpDate = dateUpDate;
+    public void setDataUpdated(Date dataUpdated) {
+        this.dataUpdated = dataUpdated;
     }
 }

@@ -50,16 +50,22 @@ public class ProducteController {
 
     // Separació Eric a baix, Marc a dalt.
 
-    @GetMapping("/producte")
+
+
+
+
+
+
+    @GetMapping("/producte") //funciona
     public ResponseEntity<List<Producte>> getAllProductes() {
         List<Producte> finded = producteService.getingAllProductes();
         if (finded == null) {
-            return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body(null);
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(finded);
         }
         return ResponseEntity.status(HttpStatus.OK).body(finded);
     }
 
-    @GetMapping("/producte/id/{id}")
+    @GetMapping("/producte/id/{id}") //funciona
     public ResponseEntity<Producte> getProductesById(@PathVariable Long id) {
         Producte finded = producteService.getingProducteById(id);
         if (finded == null) {
@@ -68,7 +74,7 @@ public class ProducteController {
         return ResponseEntity.status(HttpStatus.OK).body(finded);
     }
 
-    @PostMapping("/producte/producte")
+    @PostMapping("/producte") //funciona (falta mirar las date)
     public ResponseEntity<String> postProducte(@RequestBody Producte producte) {
         Producte posting = producteService.postingProducte(producte);
         if (posting == null) {
@@ -78,8 +84,8 @@ public class ProducteController {
     }
 
     @PutMapping("/producte/{id}")
-    public ResponseEntity<String> putMethodName(@PathVariable String id, @RequestBody Producte producte) {
-        Producte updating = producteService.updatingProducte(producte);
+    public ResponseEntity<String> putProducteById(@PathVariable Long id, @RequestBody Producte producte) {
+        Producte updating = producteService.updatingProducte(id, producte);
         if (updating == null) {
             return ResponseEntity.status(HttpStatus.INTERNAL_SERVER_ERROR).body("No s'ha pogut actualitzar el producte");
         }
