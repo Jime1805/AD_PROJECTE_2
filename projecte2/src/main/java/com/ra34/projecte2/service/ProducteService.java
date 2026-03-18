@@ -100,8 +100,14 @@ public class ProducteService {
         return null;
     }
 
-    public List<Producte> gettingByPriceLimitAndRatingRange(double ratingMin, double ratingMax, String order, double limit){
-        return producteRepository.findByRatingRange(ratingMin, ratingMax, order, limit);
+    public List<Producte> gettingByCampLimitAndRatingRange(String camp, double ratingMin, double ratingMax, String order, double limit){
+        if (camp.equalsIgnoreCase("price")) {
+            return producteRepository.findPriceByRatingRange(ratingMin, ratingMax, order, limit);
+        } 
+        else if (camp.equals("rating")) {
+            return producteRepository.findRatingByRatingRange(ratingMin, ratingMax, order, limit);
+        }
+        return null;
     }
 
     public Page<Producte> gettingWithPage(Pageable pageable){

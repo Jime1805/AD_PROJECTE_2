@@ -38,6 +38,9 @@ public interface ProducteRepository extends JpaRepository<Producte, Long> {
 
     @Query("SELECT p FROM Producte p WHERE p.rating BETWEEN :ratingMin AND :ratingMax AND p.status=true and p.price <= :limit ORDER BY " +
             "CASE WHEN :order = 'asc' THEN p.rating END ASC, CASE WHEN :order = 'desc' THEN p.rating END DESC")
-    List<Producte> findByRatingRange(@Param("ratingMin") double ratingMin, @Param("ratingMax") double ratingMax, @Param("order") String order, @Param("limit") double limit); //5.1 Integrant 2
+    List<Producte> findPriceByRatingRange(@Param("ratingMin") double ratingMin, @Param("ratingMax") double ratingMax, @Param("order") String order, @Param("limit") double limit); //5.1 Integrant 2
 
+    @Query("SELECT p FROM Producte p WHERE p.rating BETWEEN :ratingMin AND :ratingMax AND p.status=true and p.rating <= :limit ORDER BY " +
+            "CASE WHEN :order = 'asc' THEN p.rating END ASC, CASE WHEN :order = 'desc' THEN p.rating END DESC")
+    List<Producte> findRatingByRatingRange(@Param("ratingMin") double ratingMin, @Param("ratingMax") double ratingMax, @Param("order") String order, @Param("limit") double limit); //5.1 Integrant 2
 }

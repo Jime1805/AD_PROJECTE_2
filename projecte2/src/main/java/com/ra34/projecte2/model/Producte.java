@@ -32,9 +32,11 @@ public class Producte {
     
     private boolean status;
 
+    @Column(name = "data_created", insertable = false, updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataCreated;
     
+    @Column(name = "data_updated", insertable = false, updatable = false)
     @DateTimeFormat(pattern = "yyyy-MM-dd")
     private Date dataUpdated;
 
