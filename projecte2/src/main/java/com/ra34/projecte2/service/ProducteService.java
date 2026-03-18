@@ -1,8 +1,11 @@
 package com.ra34.projecte2.service;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.stereotype.Service;
 
+import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
@@ -67,25 +70,48 @@ public class ProducteService {
     }
 
     public Producte postingProducte(Producte producte){
-        Producte entity = new Producte();
-        if (producteRepository.findById(producte.getId()).isPresent()) {
-            BeanUtils.copyProperties(producte, entity);
-            entity.setId(null);
-            return producteRepository.save(entity);
+        producte.setId(null);
+        return producteRepository.save(producte);
+    }
+
+    public Producte updatingProducte(Long id, Producte producte){
+        Optional<Producte> existing = producteRepository.findById(id);
+
+        if (existing.isPresent()) {
+            Producte prod = existing.get();
+            BeanUtils.copyProperties(producte, prod, "id", "dataUpdated");
+            prod.setDataUpdated(new Date());
+            return producteRepository.save(prod);
         }
         return null;
     }
 
-    public Producte updatingProducte(Producte producte){
-        Producte entity = new Producte();
-        if (producteRepository.findById(producte.getId()).isPresent()) {
-            BeanUtils.copyProperties(producte, entity);
-            return producteRepository.save(entity);
-        }
-        return null;
-    }
-
-    public List<Producte> getingByCondition(Condition condition){ //4. Integrant 2
+    public List<Producte> getingByCondition(Condition condition){ //4.1 Integrant 2
         return producteRepository.findByConditionAndStatusTrue(condition);
     }
+
+    public List<Producte> gettingByRattingWithOrder(String camp, String order){ //4.2 Integrant 2
+        if (camp.equalsIgnoreCase("price")) {
+            return producteRepository.findByPriceRange(order);
+        }
+        else if(camp.equalsIgnoreCase("rating")){
+            return producteRepository.findByRatingRange(order);
+        }
+        return null;
+    }
+
+    public List<Producte> gettingByCampLimitAndRatingRange(String camp, double ratingMin, double ratingMax, String order, double limit){
+        if (camp.equalsIgnoreCase("price")) {
+            return producteRepository.findPriceByRatingRange(ratingMin, ratingMax, order, limit);
+        } 
+        else if (camp.equals("rating")) {
+            return producteRepository.findRatingByRatingRange(ratingMin, ratingMax, order, limit);
+        }
+        return null;
+    }
+
+    public Page<Producte> gettingWithPage(Pageable pageable){
+        return producteRepository.findAll(pageable);
+    }
+        
 }
