@@ -62,10 +62,17 @@ public class ProducteController {
     }
 
     @GetMapping("/producte/serch/order")
-    public ResponseEntity<List<Producte>> getMethodName(@RequestParam String order) {
+    public ResponseEntity<List<Producte>> findProductOrderByPrice(@RequestParam String order) {
         List<Producte> finded = producteService.findProductOrderByPrice(order);
         return ResponseEntity.status(HttpStatus.OK).body(finded);
     }
+
+    @GetMapping("/producte/search/price")
+    public ResponseEntity<List<Producte>> findProducteByPriceRange(@RequestParam Double priceMin, @RequestParam Double priceMax, @RequestParam String prefix) {
+        List<Producte> finded = producteService.findProducteByPriceRange(priceMin, priceMax, prefix);
+        return ResponseEntity.status(HttpStatus.OK).body(finded);
+    }
+    
     
     
 

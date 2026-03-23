@@ -108,6 +108,11 @@ public class ProducteService {
         return productesOrdenars;
     }
 
+    public List<Producte> findProducteByPriceRange(Double priceMin, Double priceMax, String prefix) {
+        List<Producte> productes = producteRepository.findProducteByPriceRange(priceMin, priceMax, prefix);
+        return productes;
+    }
+
     // Separació Eric a baix, Marc a dalt.
 
     public List<Producte> getingAllProductes(){
