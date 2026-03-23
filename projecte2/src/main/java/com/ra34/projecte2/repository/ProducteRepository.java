@@ -37,6 +37,9 @@ public interface ProducteRepository extends JpaRepository<Producte, Long> {
             @Param("priceMax") Double priceMax,
             @Param("prefix") String prefix);
 
+    @Query(value = "SELECT * FROM productes ORDER BY (rating / price) DESC LIMIT 5", nativeQuery = true)
+    List<Producte> findProducteTop5QualitatPreu();
+
     // Separació Eric a baix, Marc a dalt.
 
     List<Producte> findByConditionAndStatusTrue(Condition condition); // 4.1 Integrant 2

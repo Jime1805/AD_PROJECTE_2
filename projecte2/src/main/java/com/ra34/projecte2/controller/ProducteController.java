@@ -72,6 +72,13 @@ public class ProducteController {
         List<Producte> finded = producteService.findProducteByPriceRange(priceMin, priceMax, prefix);
         return ResponseEntity.status(HttpStatus.OK).body(finded);
     }
+
+    @GetMapping("/producte/top5")
+    public ResponseEntity<List<Producte>> findProducteTop5QualitatPreu(@RequestParam String param) {
+        List<Producte> finded = producteService.findProducteTop5QualitatPreu();
+        return ResponseEntity.status(HttpStatus.OK).body(finded);
+    }
+    
     
     
     

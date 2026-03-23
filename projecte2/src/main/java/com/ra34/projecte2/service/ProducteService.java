@@ -113,6 +113,11 @@ public class ProducteService {
         return productes;
     }
 
+    public List<Producte> findProducteTop5QualitatPreu() {
+        List<Producte> productes = producteRepository.findProducteTop5QualitatPreu();
+        return productes;
+    }
+
     // Separació Eric a baix, Marc a dalt.
 
     public List<Producte> getingAllProductes(){
