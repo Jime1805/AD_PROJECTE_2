@@ -1,11 +1,5 @@
 package com.ra34.projecte2.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-import org.springframework.web.multipart.MultipartFile;
-
 import java.io.BufferedReader;
 import java.io.InputStreamReader;
 import java.util.Date;
@@ -13,6 +7,11 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ra34.projecte2.model.Condition;
 import com.ra34.projecte2.model.Producte;
@@ -102,6 +101,11 @@ public class ProducteService {
         List<Producte> productes = producteRepository.findNombreByPrefix(prefix);
 
         return productes;
+    }
+
+    public List<Producte> findProductOrderByPrice(String order) {
+        List<Producte> productesOrdenars = producteRepository.findProducteByPriceOrder(order);
+        return productesOrdenars;
     }
 
     // Separació Eric a baix, Marc a dalt.

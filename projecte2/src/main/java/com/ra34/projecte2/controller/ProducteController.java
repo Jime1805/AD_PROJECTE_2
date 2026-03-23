@@ -60,6 +60,13 @@ public class ProducteController {
         List<Producte> finded = producteService.findProductsByNameWithPrefix(prefix);
         return ResponseEntity.status(HttpStatus.OK).body(finded);
     }
+
+    @GetMapping("/producte/serch/order")
+    public ResponseEntity<List<Producte>> getMethodName(@RequestParam String order) {
+        List<Producte> finded = producteService.findProductOrderByPrice(order);
+        return ResponseEntity.status(HttpStatus.OK).body(finded);
+    }
+    
     
 
     // Separació Eric a baix, Marc a dalt.
