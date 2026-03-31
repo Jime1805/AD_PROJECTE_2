@@ -70,17 +70,16 @@ public class ProducteService {
                 // Separar per comes (CSV simple)
                 String[] camps = linia.split(",");
 
-                if (camps.length != 7) throw new Exception("");
+                if (camps.length != 6) throw new Exception("Camps malament");
 
                 Producte p = new Producte();
 
-                p.setNombre(camps[0]);
-                p.setDescripcion(camps[1]);
-                p.setStock(Integer.parseInt(camps[2]));
-                p.setPrice(Float.parseFloat(camps[3]));
-                p.setRating(Float.parseFloat(camps[4]));
-                p.setCondition(Condition.valueOf(camps[5].toUpperCase()));
-
+                p.setNombre(camps[0].trim());
+                p.setDescripcion(camps[1].trim());
+                p.setStock(Integer.parseInt(camps[2].trim()));
+                p.setPrice(Float.parseFloat(camps[3].trim()));
+                p.setRating(Float.parseFloat(camps[4].trim()));
+                p.setCondition(Condition.valueOf(camps[5].trim().toUpperCase()));
                 producteRepository.save(p);
             }
 
@@ -93,6 +92,7 @@ public class ProducteService {
 
             return numeroLinia + " usuaris creats";
         } catch (Exception e) {
+            System.out.println(e);
             return "Error en la linia: " + numeroLinia + " del fitxer.";
         }
     }
