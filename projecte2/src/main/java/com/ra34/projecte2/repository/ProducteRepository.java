@@ -21,17 +21,17 @@ public interface ProducteRepository extends JpaRepository<Producte, Long> {
     @Query("update Producte p set p.status = :status where id = :id")
     String updateStatusById(@Param("id") Long id, @Param("status") boolean status);
 
-    @Query("SELECT p FROM productos p WHERE p.nombre LIKE :prefix'%' AND p.status = true")
-    List<Producte> findNombreByPrefix(@Param("prefix") String prefix);
+    @Query("SELECT p FROM Producte p WHERE p.nombre LIKE CONCAT(:prefix, '%') AND p.status = true")
+	List<Producte> findNombreByPrefix(@Param("prefix") String prefix);
 
     @Query("SELECT p FROM Producte p WHERE p.status = true ORDER BY " +
-            "CASE WHEN :order = 'asc' THEN p.precio END ASC, " +
-            "CASE WHEN :order = 'desc' THEN p.precio END DESC")
+            "CASE WHEN :order = 'asc' THEN p.price END ASC, " +
+            "CASE WHEN :order = 'desc' THEN p.price END DESC")
     List<Producte> findProducteByPriceOrder(@Param("order") String order);
 
-    @Query("SELECT p FROM Producte p WHERE p.precio BETWEEN :priceMin AND :priceMax " +
+    @Query("SELECT p FROM Producte p WHERE p.price BETWEEN :priceMin AND :priceMax " +
             "AND p.nombre LIKE :prefix% " +
-            "AND p.status = 1")
+            "AND p.status = true")
     List<Producte> findProducteByPriceRange(
             @Param("priceMin") Double priceMin,
             @Param("priceMax") Double priceMax,
