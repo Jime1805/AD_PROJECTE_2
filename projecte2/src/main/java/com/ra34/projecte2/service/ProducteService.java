@@ -1,19 +1,23 @@
 package com.ra34.projecte2.service;
 
-import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.data.domain.Page;
-import org.springframework.data.domain.Pageable;
-import org.springframework.stereotype.Service;
-
+import java.io.BufferedReader;
+import java.io.InputStreamReader;
 import java.util.Date;
 import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.BeanUtils;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+import org.springframework.stereotype.Service;
+import org.springframework.web.multipart.MultipartFile;
 
 import com.ra34.projecte2.model.Condition;
 import com.ra34.projecte2.model.Producte;
 import com.ra34.projecte2.repository.ProducteRepository;
+
+import jakarta.transaction.Transactional;
 
 @Service
 public class ProducteService {
@@ -38,7 +42,7 @@ public class ProducteService {
     }
 
     public String borratLogicById(Long id) {
-        String respons = producteRepository.updateStatusById(id, true);
+        String respons = producteRepository.updateStatusById(id, false);
 
         if (respons == null) return "No s'ha trobat el producte amb id: " + id;
 
@@ -53,6 +57,65 @@ public class ProducteService {
         if (exists.isEmpty()) return "S'ha borrat el producte: {" + id + "}";
             
         return "No s'ha pogut borrar el producte amb id: " + id;
+    }
+
+    @Transactional
+    public String createProducteBatchCSV(MultipartFile csvFile) {
+        int numeroLinia = 0;
+        try (BufferedReader br = new BufferedReader(new InputStreamReader(csvFile.getInputStream()))) {
+            String linia = br.readLine();
+
+            while ((linia = br.readLine()) != null) {
+                numeroLinia++;
+                // Separar per comes (CSV simple)
+                String[] camps = linia.split(",");
+
+                if (camps.length != 6) throw new Exception("Camps malament");
+
+                Producte p = new Producte();
+
+                p.setNombre(camps[0].trim());
+                p.setDescripcion(camps[1].trim());
+                p.setStock(Integer.parseInt(camps[2].trim()));
+                p.setPrice(Float.parseFloat(camps[3].trim()));
+                p.setRating(Float.parseFloat(camps[4].trim()));
+                p.setCondition(Condition.valueOf(camps[5].trim().toUpperCase()));
+                producteRepository.save(p);
+            }
+
+            // Path pathDirectori = Paths.get("accessadades-ra2-ac2/private/csv_processed");
+            // Path pathFitxer = Paths.get("accessadades-ra2-ac2/private/csv_processed/"
+            //         + System.currentTimeMillis() + csvFile.getOriginalFilename());
+
+            // Files.createDirectories(pathDirectori);
+            // Files.copy(csvFile.getInputStream(), pathFitxer);
+
+            return numeroLinia + " usuaris creats";
+        } catch (Exception e) {
+            System.out.println(e);
+            return "Error en la linia: " + numeroLinia + " del fitxer.";
+        }
+    }
+
+    public List<Producte> findProductsByNameWithPrefix(String prefix) {
+        List<Producte> productes = producteRepository.findNombreByPrefix(prefix);
+
+        return productes;
+    }
+
+    public List<Producte> findProductOrderByPrice(String order) {
+        List<Producte> productesOrdenars = producteRepository.findProducteByPriceOrder(order);
+        return productesOrdenars;
+    }
+
+    public List<Producte> findProducteByPriceRange(Double priceMin, Double priceMax, String prefix) {
+        List<Producte> productes = producteRepository.findProducteByPriceRange(priceMin, priceMax, prefix);
+        return productes;
+    }
+
+    public List<Producte> findProducteTop5QualitatPreu() {
+        List<Producte> productes = producteRepository.findProducteTop5QualitatPreu();
+        return productes;
     }
 
     // Separació Eric a baix, Marc a dalt.
