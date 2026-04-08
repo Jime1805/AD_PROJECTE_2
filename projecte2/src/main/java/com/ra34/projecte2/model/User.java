@@ -24,11 +24,11 @@ public class User {
     private String password;
 
     @OneToOne
-    @JoinColumn(name = "customer_id", unique = true)
+    @JoinColumn(name = "customerId", unique = true)
     private Customer customer;
 
     @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
     private List<Role> roles = new ArrayList<>();
     private boolean status;
     private Timestamp dataCreated;
