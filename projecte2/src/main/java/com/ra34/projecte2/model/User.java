@@ -1,13 +1,16 @@
 package com.ra34.projecte2.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
+import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -19,6 +22,14 @@ public class User {
     private Long id;
     private String email;
     private String password;
+
+    @OneToOne
+    @JoinColumn(name = "customer_id", unique = true)
+    private Customer customer;
+
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "user_id"), inverseJoinColumns = @JoinColumn(name = "role_id"))
+    private List<Role> roles = new ArrayList<>();
     private boolean status;
     private Timestamp dataCreated;
     private Timestamp dataUpdated;
@@ -71,9 +82,8 @@ public class User {
         this.dataUpdated = dataUpdated;
     }
 
-    public User(Long id, Customer customer, String email, String password) {
+    public User(Long id, String email, String password) {
         this.id = id;
-        this.customer = customer;
         this.email = email;
         this.password = password;
     }

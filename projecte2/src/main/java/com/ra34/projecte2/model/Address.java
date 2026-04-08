@@ -4,6 +4,7 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
 import jakarta.persistence.Table;
 
@@ -15,6 +16,7 @@ public class Address {
     private Long id;
 
     @ManyToOne
+    @JoinColumn(name = "customer_id")
     private Customer customer;
     private String address;
     private String city;
@@ -28,14 +30,6 @@ public class Address {
 
     public void setId(Long id) {
         this.id = id;
-    }
-
-    public Customer getCustomer() {
-        return customer;
-    }
-
-    public void setCustomer(Customer customer) {
-        this.customer = customer;
     }
 
     public String getAddress() {
@@ -78,10 +72,9 @@ public class Address {
         this.isDefault = isDefault;
     }
 
-    public Address(Long id, Customer customer, String address, String city, String postalCode, String country,
+    public Address(Long id, String address, String city, String postalCode, String country,
             boolean isDefault) {
         this.id = id;
-        this.customer = customer;
         this.address = address;
         this.city = city;
         this.postalCode = postalCode;
