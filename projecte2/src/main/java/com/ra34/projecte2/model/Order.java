@@ -10,7 +10,8 @@ import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.OneToMany;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.ManyToOne;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -24,8 +25,9 @@ public class Order {
     @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Invoice invoice;
 
-    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
-    private List<Customer> customers = new ArrayList<>(); 
+    @ManyToOne
+    @JoinColumn(name = "customerId")
+    private Customer customers; 
 
     private Timestamp orderDate;
     private double totalAmount;
@@ -77,20 +79,19 @@ public class Order {
     public void setDataUpdated(Timestamp dataUpdated) {
         this.dataUpdated = dataUpdated;
     }
-    
-    public List<Customer> getCustomerId() {
-        return customers;
-    }
-    public void setCustomerId(List<Customer> customers) {
-        this.customers = customers;
-    }
     public Invoice getInvoice() {
         return invoice;
     }
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
-    public Order(Long id, Invoice invoice, List<Customer> customers, Timestamp orderDate, double totalAmount,
+    public Customer getCustomers() {
+        return customers;
+    }
+    public void setCustomers(Customer customers) {
+        this.customers = customers;
+    }
+    public Order(Long id, Invoice invoice, Customer customers, Timestamp orderDate, double totalAmount,
             String orderStatus, Boolean status, Timestamp dataCreated, Timestamp dataUpdated) {
         this.id = id;
         this.invoice = invoice;
@@ -101,7 +102,5 @@ public class Order {
         this.status = status;
         this.dataCreated = dataCreated;
         this.dataUpdated = dataUpdated;
-    }
-
-    
+    }    
 }
