@@ -1,6 +1,7 @@
 package com.ra34.projecte2.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -8,7 +9,6 @@ import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
 import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -20,15 +20,15 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
-    @JoinColumn(name = "user_id")
-    private Long userId;
+    @OneToOne( cascade = CascadeType.ALL)
+    private User user;
+
     private String firstName;
     private String lastName;
     private String phone;
 
     @OneToMany(mappedBy = "customer", cascade = CascadeType.ALL)
-    private List<Address> addresses;
+    private List<Address> addresses = new ArrayList<>();
     private boolean status;
     private Timestamp dataCreated;
     private Timestamp dataUpdated;
@@ -41,12 +41,12 @@ public class Customer {
         this.id = id;
     }
 
-    public Long getUserId() {
-        return userId;
+    public User getUserId() {
+        return user;
     }
 
-    public void setUserId(Long userId) {
-        this.userId = userId;
+    public void setUserId(User user) {
+        this.user = user;
     }
 
     public String getFirstName() {
@@ -97,12 +97,28 @@ public class Customer {
         this.dataUpdated = dataUpdated;
     }
 
-    public Customer(Long id, Long userId, String firstName, String lastName, String phone) {
+    public Customer(Long id, User user, String firstName, String lastName, String phone) {
         this.id = id;
-        this.userId = userId;
+        this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+    }
+
+    public User getUser() {
+        return user;
+    }
+
+    public void setUser(User user) {
+        this.user = user;
+    }
+
+    public List<Address> getAddresses() {
+        return addresses;
+    }
+
+    public void setAddresses(List<Address> addresses) {
+        this.addresses = addresses;
     }
 
 }
