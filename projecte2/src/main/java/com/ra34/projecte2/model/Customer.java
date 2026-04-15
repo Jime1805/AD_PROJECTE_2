@@ -20,8 +20,9 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "user", cascade = CascadeType.ALL)
+    @OneToOne( cascade = CascadeType.ALL)
     private User user;
+
     private String firstName;
     private String lastName;
     private String phone;

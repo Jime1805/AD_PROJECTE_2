@@ -9,6 +9,8 @@ import jakarta.persistence.Enumerated;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
+import jakarta.persistence.JoinColumn;
+import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.Table;
 
@@ -21,7 +23,8 @@ public class Role {
     @Enumerated(value = EnumType.STRING)
     private RoleName name;
 
-    @ManyToMany(mappedBy = "user")
+    @ManyToMany
+    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
     private List<User> users = new ArrayList<>();
 
     public Long getId() {

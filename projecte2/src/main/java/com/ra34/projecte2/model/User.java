@@ -9,7 +9,6 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
-import jakarta.persistence.JoinTable;
 import jakarta.persistence.ManyToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
@@ -23,12 +22,11 @@ public class User {
     private String email;
     private String password;
 
-    @OneToOne
+    @OneToOne(mappedBy = "user")
     @JoinColumn(name = "customerId", unique = true)
     private Customer customer;
 
-    @ManyToMany
-    @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
+    @ManyToMany(mappedBy = "users")
     private List<Role> roles = new ArrayList<>();
     private boolean status;
     private Timestamp dataCreated;
