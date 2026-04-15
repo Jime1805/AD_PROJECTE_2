@@ -1,9 +1,12 @@
 package com.ra34.projecte2.model;
 
+import java.util.ArrayList;
 import java.util.Date;
+import java.util.List;
 
 import org.springframework.format.annotation.DateTimeFormat;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Column;
 import jakarta.persistence.Entity;
 import jakarta.persistence.EnumType;
@@ -12,6 +15,7 @@ import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Table;
 import jakarta.persistence.Id;
+import jakarta.persistence.OneToMany;
 
 @Entity
 @Table(name = "producte")
@@ -19,6 +23,9 @@ public class Producte {
     @Id
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
+
+    @OneToMany(mappedBy = "producte", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<>();
 
     private String nombre;
     private String descripcion;
@@ -43,9 +50,10 @@ public class Producte {
     public Producte() {
     }
 
-    public Producte(Long id, String nombre, String descripcion, int stock, float price, float rating,
+    public Producte(Long id, List<OrderItem> orderItems, String nombre, String descripcion, int stock, float price, float rating,
             Condition condition, boolean status, Date dataCreated, Date dataUpdated) {
         this.id = id;
+        this.orderItems = orderItems;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.stock = stock;
@@ -135,5 +143,13 @@ public class Producte {
 
     public void setDataUpdated(Date dataUpdated) {
         this.dataUpdated = dataUpdated;
+    }
+
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
     }
 }

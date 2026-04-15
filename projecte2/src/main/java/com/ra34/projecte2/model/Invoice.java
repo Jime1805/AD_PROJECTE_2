@@ -2,8 +2,8 @@ package com.ra34.projecte2.model;
 
 import java.sql.Timestamp;
 
-import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
+import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
@@ -18,9 +18,9 @@ public class Invoice {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL)
-    @JoinColumn(name = "orderId")
-    private Order orderId;
+    @OneToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name = "orderId", unique = true)
+    private Order order;
 
     private String invoiceNumber;
     private Timestamp issueDate;
@@ -33,10 +33,10 @@ public class Invoice {
         this.id = id;
     }
     public Order getOrderId() {
-        return orderId;
+        return order;
     }
-    public void setOrderId(Order orderId) {
-        this.orderId = orderId;
+    public void setOrderId(Order order) {
+        this.order = order;
     }
     public String getInvoiceNumber() {
         return invoiceNumber;
@@ -62,10 +62,10 @@ public class Invoice {
     public void setTotalWithTax(double totalWithTax) {
         this.totalWithTax = totalWithTax;
     }
-    public Invoice(Long id, Order orderId, String invoiceNumber, Timestamp issueDate, double textAmount,
+    public Invoice(Long id, Order order, String invoiceNumber, Timestamp issueDate, double textAmount,
             double totalWithTax) {
         this.id = id;
-        this.orderId = orderId;
+        this.order = order;
         this.invoiceNumber = invoiceNumber;
         this.issueDate = issueDate;
         this.textAmount = textAmount;
