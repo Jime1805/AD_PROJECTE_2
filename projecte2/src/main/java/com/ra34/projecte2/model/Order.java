@@ -1,7 +1,10 @@
 package com.ra34.projecte2.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
@@ -19,13 +22,12 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "orderId", unique = true)
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Invoice invoice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
+    @ManyToOne
     @JoinColumn(name = "customerId")
-    private Customer customerId; 
+    private Customer customers; 
 
     private Timestamp orderDate;
     private double totalAmount;
@@ -77,31 +79,28 @@ public class Order {
     public void setDataUpdated(Timestamp dataUpdated) {
         this.dataUpdated = dataUpdated;
     }
-    
-    public Customer getCustomerId() {
-        return customerId;
-    }
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
-    }
     public Invoice getInvoice() {
         return invoice;
     }
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
-    public Order(Long id, Invoice invoice, Customer customerId, Timestamp orderDate, double totalAmount,
+    public Customer getCustomers() {
+        return customers;
+    }
+    public void setCustomers(Customer customers) {
+        this.customers = customers;
+    }
+    public Order(Long id, Invoice invoice, Customer customers, Timestamp orderDate, double totalAmount,
             String orderStatus, Boolean status, Timestamp dataCreated, Timestamp dataUpdated) {
         this.id = id;
         this.invoice = invoice;
-        this.customerId = customerId;
+        this.customers = customers;
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
         this.orderStatus = orderStatus;
         this.status = status;
         this.dataCreated = dataCreated;
         this.dataUpdated = dataUpdated;
-    }
-
-    
+    }    
 }

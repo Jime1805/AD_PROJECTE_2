@@ -22,6 +22,9 @@ public class Customer {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
+    @OneToMany(mappedBy = "order")
+    private List<Order> orders = new ArrayList<>();
+
     @OneToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "userId", unique = true)
     private User user;
@@ -100,12 +103,20 @@ public class Customer {
         this.dataUpdated = dataUpdated;
     }
 
-    public Customer(Long id, User user, String firstName, String lastName, String phone) {
+    
+
+    public Customer(Long id, List<Order> orders, User user, String firstName, String lastName, String phone,
+            List<Address> addresses, boolean status, Timestamp dataCreated, Timestamp dataUpdated) {
         this.id = id;
+        this.orders = orders;
         this.user = user;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
+        this.addresses = addresses;
+        this.status = status;
+        this.dataCreated = dataCreated;
+        this.dataUpdated = dataUpdated;
     }
 
     public User getUser() {
@@ -122,6 +133,14 @@ public class Customer {
 
     public void setAddresses(List<Address> addresses) {
         this.addresses = addresses;
+    }
+
+    public List<Order> getOrders() {
+        return orders;
+    }
+
+    public void setOrders(List<Order> orders) {
+        this.orders = orders;
     }
 
 }
