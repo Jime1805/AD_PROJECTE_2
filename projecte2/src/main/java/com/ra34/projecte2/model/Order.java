@@ -1,14 +1,16 @@
 package com.ra34.projecte2.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
+import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
 import jakarta.persistence.FetchType;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
-import jakarta.persistence.JoinColumn;
-import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -19,13 +21,11 @@ public class Order {
     @GeneratedValue(strategy = GenerationType.IDENTITY)
     private Long id;
 
-    @OneToOne
-    @JoinColumn(name = "orderId", unique = true)
+    @OneToOne(mappedBy = "order", cascade = CascadeType.ALL, fetch = FetchType.LAZY)
     private Invoice invoice;
 
-    @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name = "customerId")
-    private Customer customerId; 
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<Customer> customers = new ArrayList<>(); 
 
     private Timestamp orderDate;
     private double totalAmount;
@@ -78,11 +78,11 @@ public class Order {
         this.dataUpdated = dataUpdated;
     }
     
-    public Customer getCustomerId() {
-        return customerId;
+    public List<Customer> getCustomerId() {
+        return customers;
     }
-    public void setCustomerId(Customer customerId) {
-        this.customerId = customerId;
+    public void setCustomerId(List<Customer> customers) {
+        this.customers = customers;
     }
     public Invoice getInvoice() {
         return invoice;
@@ -90,11 +90,11 @@ public class Order {
     public void setInvoice(Invoice invoice) {
         this.invoice = invoice;
     }
-    public Order(Long id, Invoice invoice, Customer customerId, Timestamp orderDate, double totalAmount,
+    public Order(Long id, Invoice invoice, List<Customer> customers, Timestamp orderDate, double totalAmount,
             String orderStatus, Boolean status, Timestamp dataCreated, Timestamp dataUpdated) {
         this.id = id;
         this.invoice = invoice;
-        this.customerId = customerId;
+        this.customers = customers;
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
         this.orderStatus = orderStatus;
