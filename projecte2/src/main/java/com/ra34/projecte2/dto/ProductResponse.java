@@ -2,8 +2,12 @@ package com.ra34.projecte2.dto;
 
 import com.ra34.projecte2.model.Condition;
 
+
 public class ProductResponse {
     private Long id;
+    
+    private OrderItemDTO orderItem;
+    
     private String nombre;
     private String descripcion;
     private int stock;
@@ -14,9 +18,10 @@ public class ProductResponse {
     public ProductResponse() {
     }
 
-    public ProductResponse(Long id, String nombre, String descripcion, int stock, float price, float rating,
-            Condition condition) {
+    public ProductResponse(Long id, OrderItemDTO orderItem, String nombre, String descripcion, int stock, float price,
+            float rating, Condition condition) {
         this.id = id;
+        this.orderItem = orderItem;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.stock = stock;
@@ -79,6 +84,14 @@ public class ProductResponse {
 
     public void setCondition(Condition condition) {
         this.condition = condition;
+    }
+
+    public OrderItemDTO getOrderItem() {
+        return orderItem;
+    }
+
+    public void setOrderItem(OrderItemDTO orderItem) {
+        this.orderItem = orderItem;
     }
 
     

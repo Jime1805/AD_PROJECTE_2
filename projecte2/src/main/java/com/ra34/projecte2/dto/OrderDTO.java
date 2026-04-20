@@ -1,12 +1,17 @@
 package com.ra34.projecte2.dto;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 public class OrderDTO {
     private Long id;
     private InvoiceDTO invoice;
     
     //private Customer customers;
+
+    //añadir OrderItem
+    private List<OrderItemDTO> orderItems = new ArrayList<>();
 
     private Timestamp orderDate;
     private double totalAmount;
@@ -15,11 +20,12 @@ public class OrderDTO {
 
     private Timestamp dataCreated;
     private Timestamp dataUpdated;
-
-    public OrderDTO(Long id, InvoiceDTO invoice, Timestamp orderDate, double totalAmount, String orderStatus,
-            Boolean status, Timestamp dataCreated, Timestamp dataUpdated) {
+    
+    public OrderDTO(Long id, InvoiceDTO invoice, List<OrderItemDTO> orderItems, Timestamp orderDate, double totalAmount,
+            String orderStatus, Boolean status, Timestamp dataCreated, Timestamp dataUpdated) {
         this.id = id;
         this.invoice = invoice;
+        this.orderItems = orderItems;
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
         this.orderStatus = orderStatus;
@@ -92,5 +98,11 @@ public class OrderDTO {
         this.dataUpdated = dataUpdated;
     }
 
-    
+    public List<OrderItemDTO> getOrderItems() {
+        return orderItems;
+    }
+
+    public void setOrderItems(List<OrderItemDTO> orderItems) {
+        this.orderItems = orderItems;
+    } 
 }

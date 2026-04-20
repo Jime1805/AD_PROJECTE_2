@@ -1,27 +1,14 @@
 package com.ra34.projecte2.dto;
 
-import java.sql.Timestamp;
-
 public class OrderItemDTO {
     private Long id;
     private OrderDTO order;
-    private String invoiceNumber;
-    private Timestamp issueDate;
-    private double textAmount;
-    private double totalWithTax;
+    private ProductResponse producte;
+    private int quantity;
+    private double untilPrice;
     
     public OrderItemDTO() {
     
-    }
-
-    public OrderItemDTO(Long id, OrderDTO order, String invoiceNumber, Timestamp issueDate, double textAmount,
-            double totalWithTax) {
-        this.id = id;
-        this.order = order;
-        this.invoiceNumber = invoiceNumber;
-        this.issueDate = issueDate;
-        this.textAmount = textAmount;
-        this.totalWithTax = totalWithTax;
     }
 
     public Long getId() {
@@ -40,35 +27,35 @@ public class OrderItemDTO {
         this.order = order;
     }
 
-    public String getInvoiceNumber() {
-        return invoiceNumber;
+    public ProductResponse getProducte() {
+        return producte;
     }
 
-    public void setInvoiceNumber(String invoiceNumber) {
-        this.invoiceNumber = invoiceNumber;
+    public void setProducte(ProductResponse producte) {
+        this.producte = producte;
     }
 
-    public Timestamp getIssueDate() {
-        return issueDate;
+    public double getUntilPrice() {
+        return untilPrice;
     }
 
-    public void setIssueDate(Timestamp issueDate) {
-        this.issueDate = issueDate;
+    public void setUntilPrice(double untilPrice) {
+        this.untilPrice = untilPrice;
     }
 
-    public double getTextAmount() {
-        return textAmount;
+    public int getQuantity() {
+        return quantity;
     }
 
-    public void setTextAmount(double textAmount) {
-        this.textAmount = textAmount;
+    public void setQuantity(int quantity) {
+        this.quantity = quantity;
     }
 
-    public double getTotalWithTax() {
-        return totalWithTax;
-    }
-
-    public void setTotalWithTax(double totalWithTax) {
-        this.totalWithTax = totalWithTax;
-    }
+    public OrderItemDTO(Long id, OrderDTO order, ProductResponse producte, int quantity, double untilPrice) {
+        this.id = id;
+        this.order = order;
+        this.producte = producte;
+        this.quantity = quantity;
+        this.untilPrice = untilPrice;
+    }    
 }

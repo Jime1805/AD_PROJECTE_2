@@ -26,6 +26,7 @@ public class InvoiceMapper {
             OrderDTO oDto = new OrderDTO(
                 invoice.getOrder().getId(),
                 null, // añadir mapper
+                null,
                 invoice.getOrder().getOrderDate(),
                 invoice.getOrder().getTotalAmount(),
                 invoice.getOrder().getOrderStatus(),
