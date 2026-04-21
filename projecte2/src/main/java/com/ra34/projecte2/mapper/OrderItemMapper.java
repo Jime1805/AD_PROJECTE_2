@@ -2,34 +2,35 @@ package com.ra34.projecte2.mapper;
 
 import org.springframework.stereotype.Component;
 
-import com.ra34.projecte2.dto.OrderDTO;
-import com.ra34.projecte2.dto.OrderItemDTO;
+import com.ra34.projecte2.dto.ProducteResponseDTO;
+import com.ra34.projecte2.dto.OrderItemResponseDTO;
 import com.ra34.projecte2.model.OrderItem;
 
 @Component
 public class OrderItemMapper {
-    public OrderItemDTO toDto(OrderItem orderItem){
+    public OrderItemResponseDTO toDto(OrderItem orderItem){
         if (orderItem == null) {
             return null;
         }
 
-        OrderItemDTO dto = new OrderItemDTO(
+        OrderItemResponseDTO dto = new OrderItemResponseDTO(
             orderItem.getId(),
-            null,
-            null,
             orderItem.getQuantity(),
-            orderItem.getUntilPrice()
+            orderItem.getUntilPrice(),
+            null
         );
-        if (orderItem.getOrder() != null) {
-            OrderDTO oiDto = new OrderDTO(
-                orderItem.getOrder().getId(),
-                null,
-                null,
-                orderItem.getOrder().getOrderDate(),
-                orderItem.getOrder().getTotalAmount(),
-                orderItem.getOrder().getOrderStatus()
+        if (orderItem.getProducte() != null) {
+            ProducteResponseDTO oiDto = new ProducteResponseDTO(
+                orderItem.getProducte().getId(),
+                orderItem.getProducte().getNombre(),
+                orderItem.getProducte().getDescripcion(),
+                orderItem.getProducte().getStock(),
+                orderItem.getProducte().getPrice(),
+                orderItem.getProducte().getRating(),
+                orderItem.getProducte().getCondition()
+
             );
-            dto.setOrder(oiDto);
+            dto.setProducte(oiDto);
         }
         return dto;
     }
