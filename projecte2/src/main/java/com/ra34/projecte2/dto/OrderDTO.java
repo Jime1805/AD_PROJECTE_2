@@ -16,22 +16,16 @@ public class OrderDTO {
     private Timestamp orderDate;
     private double totalAmount;
     private String orderStatus;
-    private Boolean status;
-
-    private Timestamp dataCreated;
-    private Timestamp dataUpdated;
+    //private Boolean status;
     
     public OrderDTO(Long id, InvoiceDTO invoice, List<OrderItemDTO> orderItems, Timestamp orderDate, double totalAmount,
-            String orderStatus, Boolean status, Timestamp dataCreated, Timestamp dataUpdated) {
+            String orderStatus) {
         this.id = id;
         this.invoice = invoice;
         this.orderItems = orderItems;
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
         this.orderStatus = orderStatus;
-        this.status = status;
-        this.dataCreated = dataCreated;
-        this.dataUpdated = dataUpdated;
     }
 
     public Long getId() {
@@ -72,30 +66,6 @@ public class OrderDTO {
 
     public void setOrderStatus(String orderStatus) {
         this.orderStatus = orderStatus;
-    }
-
-    public Boolean getStatus() {
-        return status;
-    }
-
-    public void setStatus(Boolean status) {
-        this.status = status;
-    }
-
-    public Timestamp getDataCreated() {
-        return dataCreated;
-    }
-
-    public void setDataCreated(Timestamp dataCreated) {
-        this.dataCreated = dataCreated;
-    }
-
-    public Timestamp getDataUpdated() {
-        return dataUpdated;
-    }
-
-    public void setDataUpdated(Timestamp dataUpdated) {
-        this.dataUpdated = dataUpdated;
     }
 
     public List<OrderItemDTO> getOrderItems() {

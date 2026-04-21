@@ -1,9 +1,13 @@
 package com.ra34.projecte2.mapper;
 
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.stereotype.Component;
 
 import com.ra34.projecte2.dto.OrderItemDTO;
 import com.ra34.projecte2.dto.ProductResponse;
+import com.ra34.projecte2.model.OrderItem;
 import com.ra34.projecte2.model.Producte;
 
 @Component
@@ -25,14 +29,20 @@ public class ProducteMapper {
         );
 
         if (producte.getOrderItems() != null) {
-            OrderItemDTO oiDto = new OrderItemDTO(
-                producte.getOrderItems().get(0).getId(),
-                null, //OrderDTO
-                null,
-                producte.getOrderItems().get(0).getQuantity(),            
-                producte.getOrderItems().get(0).getUntilPrice()
-            );
-            dto.setOrderItem(oiDto);
+            List<OrderItemDTO> itemDtos = new ArrayList<>();
+
+            for (OrderItem item : producte.getOrderItems()) {
+                OrderItemDTO oiDto = new OrderItemDTO(
+                    item.getId(),
+                    null,
+                    null,
+                    item.getQuantity(),
+                    item.getUntilPrice()
+                );
+                itemDtos.add(oiDto);
+            }
+
+            dto.setOrderItem(itemDtos);
         }
         return dto;
     }

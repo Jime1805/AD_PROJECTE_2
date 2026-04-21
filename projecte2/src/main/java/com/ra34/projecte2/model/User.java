@@ -2,6 +2,7 @@ package com.ra34.projecte2.model;
 
 import java.sql.Timestamp;
 import java.util.ArrayList;
+import java.util.Date;
 import java.util.List;
 
 import jakarta.persistence.CascadeType;
@@ -29,8 +30,8 @@ public class User {
     @ManyToMany(mappedBy = "users")
     private List<Role> roles = new ArrayList<>();
     private boolean status;
-    private Timestamp dataCreated;
-    private Timestamp dataUpdated;
+    private Date dataCreated;
+    private Date dataUpdated;
 
     public Long getId() {
         return id;
@@ -64,19 +65,19 @@ public class User {
         this.status = status;
     }
 
-    public Timestamp getDataCreated() {
+    public Date getDataCreated() {
         return dataCreated;
     }
 
-    public void setDataCreated(Timestamp dataCreated) {
+    public void setDataCreated(Date dataCreated) {
         this.dataCreated = dataCreated;
     }
 
-    public Timestamp getDataUpdated() {
+    public Date getDataUpdated() {
         return dataUpdated;
     }
 
-    public void setDataUpdated(Timestamp dataUpdated) {
+    public void setDataUpdated(Date dataUpdated) {
         this.dataUpdated = dataUpdated;
     }
 

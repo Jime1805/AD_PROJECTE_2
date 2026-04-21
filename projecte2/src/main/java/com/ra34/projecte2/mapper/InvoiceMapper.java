@@ -29,10 +29,7 @@ public class InvoiceMapper {
                 null,
                 invoice.getOrder().getOrderDate(),
                 invoice.getOrder().getTotalAmount(),
-                invoice.getOrder().getOrderStatus(),
-                invoice.getOrder().getStatus(),
-                invoice.getOrder().getDataCreated(),
-                invoice.getOrder().getDataUpdated()
+                invoice.getOrder().getOrderStatus()
             );
             dto.setOrder(oDto);
         }

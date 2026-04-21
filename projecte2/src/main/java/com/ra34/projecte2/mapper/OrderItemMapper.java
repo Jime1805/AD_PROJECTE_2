@@ -27,10 +27,7 @@ public class OrderItemMapper {
                 null,
                 orderItem.getOrder().getOrderDate(),
                 orderItem.getOrder().getTotalAmount(),
-                orderItem.getOrder().getOrderStatus(),
-                orderItem.getOrder().getStatus(),
-                orderItem.getOrder().getDataCreated(),
-                orderItem.getOrder().getDataUpdated()
+                orderItem.getOrder().getOrderStatus()
             );
             dto.setOrder(oiDto);
         }

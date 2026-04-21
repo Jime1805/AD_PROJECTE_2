@@ -1,12 +1,14 @@
 package com.ra34.projecte2.dto;
 
+import java.util.List;
+
 import com.ra34.projecte2.model.Condition;
 
 
 public class ProductResponse {
     private Long id;
     
-    private OrderItemDTO orderItem;
+    private List<OrderItemDTO> orderItem;
     
     private String nombre;
     private String descripcion;
@@ -18,7 +20,7 @@ public class ProductResponse {
     public ProductResponse() {
     }
 
-    public ProductResponse(Long id, OrderItemDTO orderItem, String nombre, String descripcion, int stock, float price,
+    public ProductResponse(Long id, List<OrderItemDTO> orderItem, String nombre, String descripcion, int stock, float price,
             float rating, Condition condition) {
         this.id = id;
         this.orderItem = orderItem;
@@ -86,11 +88,11 @@ public class ProductResponse {
         this.condition = condition;
     }
 
-    public OrderItemDTO getOrderItem() {
+    public List<OrderItemDTO> getOrderItem() {
         return orderItem;
     }
 
-    public void setOrderItem(OrderItemDTO orderItem) {
+    public void setOrderItem(List<OrderItemDTO> orderItem) {
         this.orderItem = orderItem;
     }
 
