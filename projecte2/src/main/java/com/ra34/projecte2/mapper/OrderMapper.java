@@ -3,61 +3,47 @@ package com.ra34.projecte2.mapper;
 import java.util.ArrayList;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Component;
 
-import com.ra34.projecte2.dto.InvoiceDTO;
-import com.ra34.projecte2.dto.OrderDTO;
-import com.ra34.projecte2.dto.OrderItemDTO;
+import com.ra34.projecte2.dto.InvoiceResponseDTO;
+import com.ra34.projecte2.dto.OrderItemResponseDTO;
+import com.ra34.projecte2.dto.OrderResponseDTO;
 import com.ra34.projecte2.model.Order;
 import com.ra34.projecte2.model.OrderItem;
 
 @Component
 public class OrderMapper {
 
-    public OrderDTO toDto(Order order) {
-        if (order == null) {
-            return null;
+    @Autowired
+    OrderItemMapper orderItemMapper; // per pasar a dto
+
+    @Autowired
+    InvoiceMapper invoiceMapper; // per pasar a dto
+
+    // Converteix una entitat Order a OrderResponseDTO
+    public OrderResponseDTO toDto(Order order) {
+        if (order == null) return null;
+
+        List<OrderItemResponseDTO> itemDtos = new ArrayList<>();
+        if (order.getOrderItems() != null) {
+            for (OrderItem item : order.getOrderItems()) {
+                itemDtos.add(orderItemMapper.toDto(item));
+            }
         }
 
-        OrderDTO dto = new OrderDTO(
+        InvoiceResponseDTO invoiceDTO = null;
+        if (order.getInvoice() != null) {
+            invoiceDTO = invoiceMapper.toDto(order.getInvoice());
+        }
+
+        return new OrderResponseDTO(
             order.getId(),
-            null, // l'invoice s'afegeix a continuació
-            null, // els orderItems s'afegeixen a continuació
             order.getOrderDate(),
             order.getTotalAmount(),
-            order.getOrderStatus()
+            order.getOrderStatus(),
+            itemDtos,
+            invoiceDTO
         );
-
-        // Mapeja l'invoice si existeix
-        if (order.getInvoice() != null) {
-            InvoiceDTO iDto = new InvoiceDTO(
-                order.getInvoice().getId(),
-                null,
-                order.getInvoice().getInvoiceNumber(),
-                order.getInvoice().getIssueDate(),
-                order.getInvoice().getTextAmount(),
-                order.getInvoice().getTotalWithTax()
-            );
-            dto.setInvoice(iDto);
-        }
-
-        if (order.getOrderItems() != null) {
-            List<OrderItemDTO> itemDtos = new ArrayList<>();
-
-            for (OrderItem item : order.getOrderItems()) {
-                OrderItemDTO oiDto = new OrderItemDTO(
-                    item.getId(),
-                    null,
-                    null,
-                    item.getQuantity(),
-                    item.getUntilPrice()
-                );
-                itemDtos.add(oiDto);
-            }
-
-            dto.setOrderItems(itemDtos);
-        }
-
-        return dto;
     }
 }

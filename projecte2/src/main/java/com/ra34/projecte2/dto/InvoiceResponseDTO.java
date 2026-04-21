@@ -2,76 +2,64 @@ package com.ra34.projecte2.dto;
 
 import java.sql.Timestamp;
 
-public class InvoiceDTO {
+public class InvoiceResponseDTO {
     private Long id;
-
-    private OrderDTO order;
+    private Long orderId;
     private String invoiceNumber;
     private Timestamp issueDate;
-    private double textAmount;
+    private double taxAmount;
     private double totalWithTax;
-    
-    public InvoiceDTO() {
+
+    public InvoiceResponseDTO() {
     
     }
-
-    public InvoiceDTO(Long id, OrderDTO order, String invoiceNumber, Timestamp issueDate, double textAmount,
+    
+    public InvoiceResponseDTO(Long id, Long orderId, String invoiceNumber, Timestamp issueDate, double taxAmount,
             double totalWithTax) {
         this.id = id;
-        this.order = order;
+        this.orderId = orderId;
         this.invoiceNumber = invoiceNumber;
         this.issueDate = issueDate;
-        this.textAmount = textAmount;
+        this.taxAmount = taxAmount;
         this.totalWithTax = totalWithTax;
     }
-
     public Long getId() {
         return id;
     }
-
     public void setId(Long id) {
         this.id = id;
     }
-
-    public OrderDTO getOrder() {
-        return order;
+    public Long getOrderId() {
+        return orderId;
     }
-
-    public void setOrder(OrderDTO order) {
-        this.order = order;
+    public void setOrderId(Long orderId) {
+        this.orderId = orderId;
     }
-
     public String getInvoiceNumber() {
         return invoiceNumber;
     }
-
     public void setInvoiceNumber(String invoiceNumber) {
         this.invoiceNumber = invoiceNumber;
     }
-
     public Timestamp getIssueDate() {
         return issueDate;
     }
-
     public void setIssueDate(Timestamp issueDate) {
         this.issueDate = issueDate;
     }
-
-    public double getTextAmount() {
-        return textAmount;
+    public double getTaxAmount() {
+        return taxAmount;
     }
-
-    public void setTextAmount(double textAmount) {
-        this.textAmount = textAmount;
+    public void setTaxAmount(double taxAmount) {
+        this.taxAmount = taxAmount;
     }
-
     public double getTotalWithTax() {
         return totalWithTax;
     }
-
     public void setTotalWithTax(double totalWithTax) {
         this.totalWithTax = totalWithTax;
     }
 
+    
     
 }

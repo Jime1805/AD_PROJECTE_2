@@ -1,35 +1,29 @@
 package com.ra34.projecte2.dto;
 
-import java.util.List;
-
 import com.ra34.projecte2.model.Condition;
 
-
-public class ProductResponse {
+// DTO per retornar la informació d'un producte sense camps sensibles
+// (sense status, dataCreated, dataUpdated)
+public class ProducteResponseDTO {
     private Long id;
-    
-    private List<OrderItemDTO> orderItem;
-    
     private String nombre;
     private String descripcion;
     private int stock;
     private float price;
     private float rating;
     private Condition condition;
-    
-    public ProductResponse() {
-    }
 
-    public ProductResponse(Long id, List<OrderItemDTO> orderItem, String nombre, String descripcion, int stock, float price,
-            float rating, Condition condition) {
+    public ProducteResponseDTO(Long id, String nombre, String descripcion, int stock, float price, float rating, Condition condition) {
         this.id = id;
-        this.orderItem = orderItem;
         this.nombre = nombre;
         this.descripcion = descripcion;
         this.stock = stock;
         this.price = price;
         this.rating = rating;
         this.condition = condition;
+    }
+
+    public ProducteResponseDTO() {
     }
 
     public Long getId() {
@@ -86,14 +80,6 @@ public class ProductResponse {
 
     public void setCondition(Condition condition) {
         this.condition = condition;
-    }
-
-    public List<OrderItemDTO> getOrderItem() {
-        return orderItem;
-    }
-
-    public void setOrderItem(List<OrderItemDTO> orderItem) {
-        this.orderItem = orderItem;
     }
 
     
