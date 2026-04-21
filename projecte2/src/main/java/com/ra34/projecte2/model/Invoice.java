@@ -26,6 +26,9 @@ public class Invoice {
     private Timestamp issueDate;
     private double textAmount;
     private double totalWithTax;
+    
+    public Invoice() {
+    }
     public Long getId() {
         return id;
     }

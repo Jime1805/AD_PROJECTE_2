@@ -24,6 +24,9 @@ public class Address {
     private String country;
     private boolean isDefault;
 
+    public Address() {
+    }
+
     public Long getId() {
         return id;
     }

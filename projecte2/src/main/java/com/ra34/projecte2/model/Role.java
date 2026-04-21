@@ -27,6 +27,9 @@ public class Role {
     @JoinTable(name = "user_role", joinColumns = @JoinColumn(name = "userId"), inverseJoinColumns = @JoinColumn(name = "roleId"))
     private List<User> users = new ArrayList<>();
 
+    public Role() {
+    }
+
     public Long getId() {
         return id;
     }
