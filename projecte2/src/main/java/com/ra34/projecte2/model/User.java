@@ -33,6 +33,9 @@ public class User {
     private Date dataCreated;
     private Date dataUpdated;
 
+    public User() {
+    }
+
     public Long getId() {
         return id;
     }

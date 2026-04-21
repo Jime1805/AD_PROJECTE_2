@@ -33,7 +33,7 @@ public class Order {
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
 
-
+    
     private Timestamp orderDate;
     private double totalAmount;
     private String orderStatus;
@@ -41,7 +41,9 @@ public class Order {
 
     private Timestamp dataCreated;
     private Timestamp dataUpdated;
-    
+
+    public Order() {
+    }
     public Long getId() {
         return id;
     }
