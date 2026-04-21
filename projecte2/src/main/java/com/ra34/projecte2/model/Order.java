@@ -12,6 +12,7 @@ import jakarta.persistence.GenerationType;
 import jakarta.persistence.Id;
 import jakarta.persistence.JoinColumn;
 import jakarta.persistence.ManyToOne;
+import jakarta.persistence.OneToMany;
 import jakarta.persistence.OneToOne;
 import jakarta.persistence.Table;
 
@@ -27,7 +28,11 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customerId")
-    private Customer customers; 
+    private Customer customers;
+
+    @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
+    private List<OrderItem> orderItems = new ArrayList<>();
+
 
     private Timestamp orderDate;
     private double totalAmount;
@@ -91,16 +96,24 @@ public class Order {
     public void setCustomers(Customer customers) {
         this.customers = customers;
     }
-    public Order(Long id, Invoice invoice, Customer customers, Timestamp orderDate, double totalAmount,
-            String orderStatus, Boolean status, Timestamp dataCreated, Timestamp dataUpdated) {
+    public List<OrderItem> getOrderItems() {
+        return orderItems;
+    }
+    public void setOrderItems(List<OrderItem> orderItems) {
+        this.orderItems = orderItems;
+    }
+    public Order(Long id, Invoice invoice, Customer customers, List<OrderItem> orderItems, Timestamp orderDate,
+            double totalAmount, String orderStatus, Boolean status, Timestamp dataCreated, Timestamp dataUpdated) {
         this.id = id;
         this.invoice = invoice;
         this.customers = customers;
+        this.orderItems = orderItems;
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
         this.orderStatus = orderStatus;
         this.status = status;
         this.dataCreated = dataCreated;
         this.dataUpdated = dataUpdated;
-    }    
+    }
+      
 }
