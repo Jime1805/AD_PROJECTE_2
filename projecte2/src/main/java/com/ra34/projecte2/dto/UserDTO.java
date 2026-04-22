@@ -2,16 +2,19 @@ package com.ra34.projecte2.dto;
 
 import java.util.List;
 
-import com.ra34.projecte2.model.Role;
-
 public class UserDTO {
+
     private Long id;
     private String email;
-    private String password;
     private CustomerDTO customer;
-    private List<Role> roles;
-    
+    private List<RoleDTO> roles;
+
     public UserDTO() {
+    }
+
+    public UserDTO(Long id, String email) {
+        this.id = id;
+        this.email = email;
     }
 
     public Long getId() {
@@ -30,14 +33,6 @@ public class UserDTO {
         this.email = email;
     }
 
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
-    }
-
     public CustomerDTO getCustomer() {
         return customer;
     }
@@ -46,11 +41,11 @@ public class UserDTO {
         this.customer = customer;
     }
 
-    public List<Role> getRoles() {
+    public List<RoleDTO> getRoles() {
         return roles;
     }
 
-    public void setRoles(List<Role> roles) {
+    public void setRoles(List<RoleDTO> roles) {
         this.roles = roles;
     }
 }
