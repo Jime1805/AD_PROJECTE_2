@@ -95,8 +95,8 @@ public class Order {
     public Customer getCustomers() {
         return customers;
     }
-    public void setCustomers(Customer customers) {
-        this.customers = customers;
+    public void setCustomers(Customer customer) {
+        this.customers = customer;
     }
     public List<OrderItem> getOrderItems() {
         return orderItems;
