@@ -1,6 +1,8 @@
 package com.ra34.projecte2.model;
 
 import java.sql.Timestamp;
+import java.util.ArrayList;
+import java.util.List;
 
 import jakarta.persistence.CascadeType;
 import jakarta.persistence.Entity;
@@ -26,11 +28,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customerId")
-<<<<<<< HEAD
-    private Customer customer; 
-=======
     private Customer customers;
->>>>>>> 11009cb5ca0d9024b8550ce873adf297f596d350
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
@@ -95,18 +93,11 @@ public class Order {
         this.invoice = invoice;
     }
     public Customer getCustomers() {
-        return customer;
+        return customers;
     }
     public void setCustomers(Customer customer) {
-        this.customer = customer;
+        this.customers = customer;
     }
-<<<<<<< HEAD
-    public Order(Long id, Invoice invoice, Customer customer, Timestamp orderDate, double totalAmount,
-            String orderStatus, Boolean status, Timestamp dataCreated, Timestamp dataUpdated) {
-        this.id = id;
-        this.invoice = invoice;
-        this.customer = customer;
-=======
     public List<OrderItem> getOrderItems() {
         return orderItems;
     }
@@ -119,7 +110,6 @@ public class Order {
         this.invoice = invoice;
         this.customers = customers;
         this.orderItems = orderItems;
->>>>>>> 11009cb5ca0d9024b8550ce873adf297f596d350
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
         this.orderStatus = orderStatus;
