@@ -3,10 +3,10 @@ package com.ra34.projecte2.dto;
 import java.sql.Timestamp;
 import java.util.List;
 
-// DTO per rebre les dades per crear o modificar un order
 public class OrderRequestDTO {
     private Timestamp orderDate;
-    private List<Long> producteIds; // ids dels productes a afegir a la comanda
+    private List<Long> producteIds;
+    
     public Timestamp getOrderDate() {
         return orderDate;
     }
