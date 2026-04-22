@@ -1,41 +1,28 @@
 package com.ra34.projecte2.dto;
 
-public class UserRequest {
+public class CustomerRequestDTO {
 
-    // Dades del User
-    private String email;
-    private String password;
-
-    // Dades del Customer (obligatòries per a la creació)
+    private Long userId;
     private String firstName;
     private String lastName;
     private String phone;
 
-    public UserRequest() {
+    public CustomerRequestDTO() {
     }
 
-    public UserRequest(String email, String password, String firstName, String lastName, String phone) {
-        this.email = email;
-        this.password = password;
+    public CustomerRequestDTO(Long userId, String firstName, String lastName, String phone) {
+        this.userId = userId;
         this.firstName = firstName;
         this.lastName = lastName;
         this.phone = phone;
     }
 
-    public String getEmail() {
-        return email;
+    public Long getUserId() {
+        return userId;
     }
 
-    public void setEmail(String email) {
-        this.email = email;
-    }
-
-    public String getPassword() {
-        return password;
-    }
-
-    public void setPassword(String password) {
-        this.password = password;
+    public void setUserId(Long userId) {
+        this.userId = userId;
     }
 
     public String getFirstName() {

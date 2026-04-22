@@ -8,19 +8,18 @@ import com.ra34.projecte2.model.Invoice;
 
 @Component
 public class InvoiceMapper {
-    public InvoiceResponseDTO toDto(Invoice invoice){
+    public InvoiceResponseDTO toDto(Invoice invoice) {
         if (invoice == null) {
             return null;
         }
 
         InvoiceResponseDTO dto = new InvoiceResponseDTO(
-            invoice.getId(),
-            null,
-            invoice.getInvoiceNumber(),
-            invoice.getIssueDate(),
-            invoice.getTextAmount(),
-            invoice.getTotalWithTax()
-        );
+                invoice.getId(),
+                null,
+                invoice.getInvoiceNumber(),
+                invoice.getIssueDate(),
+                invoice.getTextAmount(),
+                invoice.getTotalWithTax());
 
         if (invoice.getOrder() != null) {
             dto.setOrderId(invoice.getOrder().getId());
@@ -28,7 +27,7 @@ public class InvoiceMapper {
         return dto;
     }
 
-    public Invoice toEntity(InvoiceRequestDTO request){
+    public Invoice toEntity(InvoiceRequestDTO request) {
         if (request == null) {
             return null;
         }

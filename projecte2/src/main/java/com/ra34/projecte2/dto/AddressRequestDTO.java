@@ -1,32 +1,22 @@
 package com.ra34.projecte2.dto;
 
-public class AddressDTO {
+public class AddressRequestDTO {
 
-    private Long id;
     private String address;
     private String city;
     private String postalCode;
     private String country;
     private boolean isDefault;
 
-    public AddressDTO() {
+    public AddressRequestDTO() {
     }
 
-    public AddressDTO(Long id, String address, String city, String postalCode, String country, boolean isDefault) {
-        this.id = id;
+    public AddressRequestDTO(String address, String city, String postalCode, String country, boolean isDefault) {
         this.address = address;
         this.city = city;
         this.postalCode = postalCode;
         this.country = country;
         this.isDefault = isDefault;
-    }
-
-    public Long getId() {
-        return id;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
     }
 
     public String getAddress() {
