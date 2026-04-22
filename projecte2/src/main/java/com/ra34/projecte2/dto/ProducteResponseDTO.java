@@ -2,7 +2,9 @@ package com.ra34.projecte2.dto;
 
 import com.ra34.projecte2.model.Condition;
 
-public class ProductResponse {
+// DTO per retornar la informació d'un producte sense camps sensibles
+// (sense status, dataCreated, dataUpdated)
+public class ProducteResponseDTO {
     private Long id;
     private String nombre;
     private String descripcion;
@@ -10,12 +12,8 @@ public class ProductResponse {
     private float price;
     private float rating;
     private Condition condition;
-    
-    public ProductResponse() {
-    }
 
-    public ProductResponse(Long id, String nombre, String descripcion, int stock, float price, float rating,
-            Condition condition) {
+    public ProducteResponseDTO(Long id, String nombre, String descripcion, int stock, float price, float rating, Condition condition) {
         this.id = id;
         this.nombre = nombre;
         this.descripcion = descripcion;
@@ -23,6 +21,9 @@ public class ProductResponse {
         this.price = price;
         this.rating = rating;
         this.condition = condition;
+    }
+
+    public ProducteResponseDTO() {
     }
 
     public Long getId() {

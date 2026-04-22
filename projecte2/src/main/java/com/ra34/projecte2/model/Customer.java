@@ -38,6 +38,9 @@ public class Customer {
     private boolean status;
     private Timestamp dataCreated;
     private Timestamp dataUpdated;
+    
+    public Customer() {
+    }
 
     public Long getId() {
         return id;

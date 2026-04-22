@@ -26,16 +26,19 @@ public class Invoice {
     private Timestamp issueDate;
     private double textAmount;
     private double totalWithTax;
+    
+    public Invoice() {
+    }
     public Long getId() {
         return id;
     }
     public void setId(Long id) {
         this.id = id;
     }
-    public Order getOrderId() {
+    public Order getOrder() {
         return order;
     }
-    public void setOrderId(Order order) {
+    public void setOrder(Order order) {
         this.order = order;
     }
     public String getInvoiceNumber() {
