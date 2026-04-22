@@ -8,7 +8,9 @@ import org.springframework.stereotype.Component;
 
 import com.ra34.projecte2.dto.InvoiceResponseDTO;
 import com.ra34.projecte2.dto.OrderItemResponseDTO;
+import com.ra34.projecte2.dto.OrderRequestDTO;
 import com.ra34.projecte2.dto.OrderResponseDTO;
+import com.ra34.projecte2.model.Customer;
 import com.ra34.projecte2.model.Order;
 import com.ra34.projecte2.model.OrderItem;
 
@@ -21,7 +23,6 @@ public class OrderMapper {
     @Autowired
     InvoiceMapper invoiceMapper; // per pasar a dto
 
-    // Converteix una entitat Order a OrderResponseDTO
     public OrderResponseDTO toDto(Order order) {
         if (order == null) return null;
 
@@ -45,5 +46,20 @@ public class OrderMapper {
             itemDtos,
             invoiceDTO
         );
+    }
+
+    public Order toEntity(OrderRequestDTO request, Customer customer){
+        if (request == null) {
+            return null;
+        }
+        Order order = new Order();
+
+        order.setCustomers(customer);
+        order.setOrderDate(request.getOrderDate());
+        order.setTotalAmount(0);
+        order.setOrderStatus("PENDENT");
+        order.setStatus(true);
+
+        return order;
     }
 }

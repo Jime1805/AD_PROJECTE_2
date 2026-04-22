@@ -4,7 +4,9 @@ import org.springframework.stereotype.Component;
 
 import com.ra34.projecte2.dto.ProducteResponseDTO;
 import com.ra34.projecte2.dto.OrderItemResponseDTO;
+import com.ra34.projecte2.model.Order;
 import com.ra34.projecte2.model.OrderItem;
+import com.ra34.projecte2.model.Producte;
 
 @Component
 public class OrderItemMapper {
@@ -33,5 +35,19 @@ public class OrderItemMapper {
             dto.setProducte(oiDto);
         }
         return dto;
+    }
+
+    public OrderItem toEntity(Producte producte, Order order){
+        if (producte == null || order == null) {
+            return null;
+        }
+
+        OrderItem orderItem = new OrderItem();
+        orderItem.setOrder(order);
+        orderItem.setProducte(producte);
+        orderItem.setQuantity(1); // per defecte
+        orderItem.setUntilPrice(producte.getPrice());
+
+        return orderItem;
     }
 }
