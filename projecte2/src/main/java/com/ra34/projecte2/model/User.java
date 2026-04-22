@@ -80,10 +80,26 @@ public class User {
         this.dataUpdated = dataUpdated;
     }
 
+    public Customer getCustomer() {
+        return customer;
+    }
+
+    public void setCustomer(Customer customer) {
+        this.customer = customer;
+    }
+
+    public List<Role> getRoles() {
+        return roles;
+    }
+
+    public void setRoles(List<Role> roles) {
+        this.roles = roles;
+    }
+    
     public User(Long id, String email, String password) {
         this.id = id;
         this.email = email;
         this.password = password;
+        this.status = true;
     }
-
 }
