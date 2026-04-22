@@ -28,7 +28,7 @@ public class Order {
 
     @ManyToOne
     @JoinColumn(name = "customerId")
-    private Customer customers;
+    private Customer customer;
 
     @OneToMany(mappedBy = "order", cascade = CascadeType.ALL)
     private List<OrderItem> orderItems = new ArrayList<>();
@@ -93,10 +93,10 @@ public class Order {
         this.invoice = invoice;
     }
     public Customer getCustomers() {
-        return customers;
+        return customer;
     }
     public void setCustomers(Customer customer) {
-        this.customers = customer;
+        this.customer = customer;
     }
     public List<OrderItem> getOrderItems() {
         return orderItems;
@@ -104,11 +104,11 @@ public class Order {
     public void setOrderItems(List<OrderItem> orderItems) {
         this.orderItems = orderItems;
     }
-    public Order(Long id, Invoice invoice, Customer customers, List<OrderItem> orderItems, Timestamp orderDate,
+    public Order(Long id, Invoice invoice, Customer customer, List<OrderItem> orderItems, Timestamp orderDate,
             double totalAmount, String orderStatus, Boolean status, Timestamp dataCreated, Timestamp dataUpdated) {
         this.id = id;
         this.invoice = invoice;
-        this.customers = customers;
+        this.customer = customer;
         this.orderItems = orderItems;
         this.orderDate = orderDate;
         this.totalAmount = totalAmount;
