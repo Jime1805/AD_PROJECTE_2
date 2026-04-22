@@ -4,7 +4,6 @@ import org.springframework.stereotype.Component;
 
 import com.ra34.projecte2.dto.InvoiceRequestDTO;
 import com.ra34.projecte2.dto.InvoiceResponseDTO;
-import com.ra34.projecte2.dto.OrderRequestDTO;
 import com.ra34.projecte2.model.Invoice;
 
 @Component
